@@ -12,16 +12,18 @@ No third-party dependency is required. Python 3.9+ is enough.
 ```bash
 python -m src.main --help
 python -m src.main examples/transcript.txt --max-seconds 10
+python -m src.main examples/transcript.txt --max-seconds 10 --summary
 python -m src.main examples/transcript.txt --max-seconds 10 --fail-on-issues
 ```
 
 ## Example
 ```bash
-python -m src.main examples/transcript.txt --max-seconds 10
+python -m src.main examples/transcript.txt --max-seconds 10 --summary
 ```
 
 The command prints a concise report and can be used in CI or local automation.
 Use `--fail-on-issues` to return exit code 1 when transcript quality issues are found.
+It now auto-detects common `.srt` caption blocks via `--input-format auto` and includes `issue_counts` in JSON output for dashboards.
 
 ## Self-check
 ```bash
