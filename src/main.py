@@ -15,9 +15,11 @@ def check(text, max_seconds=12):
     return {'segments':count,'issues':issues,'passed':not issues}
 def main(argv=None):
     p=argparse.ArgumentParser(description='QA timestamped local transcript segments')
-    p.add_argument('file'); p.add_argument('--max-seconds',type=float,default=12); p.add_argument('--json',action='store_true')
+    p.add_argument('file'); p.add_argument('--max-seconds',type=float,default=12); p.add_argument('--json',action='store_true'); p.add_argument('--fail-on-issues',action='store_true',help='exit 1 when transcript issues are found')
     a=p.parse_args(argv); r=check(open(a.file,encoding='utf-8').read(),a.max_seconds)
-    if a.json: print(json.dumps(r,indent=2)); return
-    print(f"Segments: {r['segments']}  Status: {'PASS' if r['passed'] else 'FAIL'}")
-    for x in r['issues']: print(f"line {x['line']}: {x['type']} - {x['message']}")
+    if a.json: print(json.dumps(r,indent=2))
+    else:
+        print(f"Segments: {r['segments']}  Status: {'PASS' if r['passed'] else 'FAIL'}")
+        for x in r['issues']: print(f"line {x['line']}: {x['type']} - {x['message']}")
+    if a.fail_on_issues and not r['passed']: raise SystemExit(1)
 if __name__=='__main__': main()

@@ -12,6 +12,7 @@ No third-party dependency is required. Python 3.9+ is enough.
 ```bash
 python -m src.main --help
 python -m src.main examples/transcript.txt --max-seconds 10
+python -m src.main examples/transcript.txt --max-seconds 10 --fail-on-issues
 ```
 
 ## Example
@@ -20,6 +21,7 @@ python -m src.main examples/transcript.txt --max-seconds 10
 ```
 
 The command prints a concise report and can be used in CI or local automation.
+Use `--fail-on-issues` to return exit code 1 when transcript quality issues are found.
 
 ## Self-check
 ```bash
@@ -28,7 +30,7 @@ python tests/test_main.py
 
 ## Roadmap
 - Add richer input templates.
-- Add CI-friendly JSON and SARIF export where useful.
+- Add SARIF export where useful.
 - Add more real-world fixtures from community feedback.
 
 ## License
